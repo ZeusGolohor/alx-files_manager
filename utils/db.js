@@ -1,4 +1,4 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient } = require('mongodb');
 
 /**
  * A mangoDB class.
@@ -8,9 +8,9 @@ class DBClient {
    * DBClient class constructor
    */
   constructor() {
-    const HOST = process.env.DB_HOST || "localhost";
+    const HOST = process.env.DB_HOST || 'localhost';
     const PORT = process.env.DB_PORT || 27017;
-    const DATABASE = process.env.DB_DATABASE || "files_manager";
+    const DATABASE = process.env.DB_DATABASE || 'files_manager';
     const url = `mongodb://${HOST}:${PORT}`;
 
     this.client = new MongoClient(url);
@@ -25,11 +25,11 @@ class DBClient {
           this.connected = true;
         })
         .catch((error) => {
-          console.error("Error connecting to MongoDB:", error);
+          console.error('Error connecting to MongoDB:', error);
           this.connected = false;
         });
     } catch (error) {
-      console.error("Error creating MongoClient:", error);
+      console.error('Error creating MongoClient:', error);
     }
   }
 
@@ -45,10 +45,10 @@ class DBClient {
    */
   async nbUsers() {
     if (!this.connected) {
-      throw new Error("An error occured, Not connected to MongoDB database.");
+      throw new Error('An error occured, Not connected to MongoDB database.');
     }
     try {
-      const collection = this.db.collection("users");
+      const collection = this.db.collection('users');
       const count = await collection.countDocuments({});
       return count;
     } catch (error) {
@@ -62,11 +62,11 @@ class DBClient {
    */
   async nbFiles() {
     if (!this.connected) {
-      throw new Error("An error occured, Not connected to MongoDB database.");
+      throw new Error('An error occured, Not connected to MongoDB database.');
     }
 
     try {
-      const collection = this.db.collection("files");
+      const collection = this.db.collection('files');
       const count = await collection.countDocuments({});
       return count;
     } catch (error) {
