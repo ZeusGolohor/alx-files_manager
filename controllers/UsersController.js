@@ -10,11 +10,11 @@ export default class UsersController {
     const userPassword = request.body ? request.body.password : null;
 
     if (!userEmail) {
-      response.status(400).json({error: 'Missing email'});
+      response.status(400).json({ error: 'Missing email' });
       return;
     }
     if (!userPassword) {
-      response.status(400).json({error: 'Missing password'});
+      response.status(400).json({ error: 'Missing password' });
       return;
     }
 
@@ -24,15 +24,15 @@ export default class UsersController {
       return;
     }
     const insertionInfo = await (await dbClient.usersCollection())
-      .insertOne({email: userEmail, password: sha1(userPassword)});
+      .insertOne({ email: userEmail, password: sha1(userPassword) });
     const userId = insertionInfo.insertedId.toString();
     userQueue.add({ userId });
-    response.status(201).json({email: userEmail, id: userId});
+    response.status(201).json({ email: userEmail, id: userId });
   }
 
   static async getMe(req, res) {
     const {user} = req;
-    res.status(200).json({email: user.email, id: user._id.toString()});
+    res.status(200).json({ email: user.email, id: user._id.toString() });
   }
 }
 
